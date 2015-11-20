@@ -31,7 +31,7 @@
     skipping  =350,280,250,250
     # 按栏分割(范围 1~4, 默认1不分割)
     split     =3
-    // 设yes=背景透明化，默认no
+    # 设yes=背景透明化，默认no
     transparency=yes
     # 设yes则压缩PNG图片，压缩比50%以上且肉眼看不出压缩损耗！默认no
     shrink    =yes
