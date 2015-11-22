@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 ## pic_beautifier.py
 ## A helpful tool to beautify pictures
+## (C) bt4baidu@pdawiki
 ##
 ## This program is a free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -68,7 +69,7 @@ class enhancer:
             self.__pngqt = path.sep.join(['.', 'bin', 'pngquant'])
         self.__usebin = path.exists(self.__pngqt)
         if self.__usebin and self.__prop['shrink']:
-            print "use pngquant to shrink."
+            print "Note: use pngquant to shrink."
 
     def __load_ini(self):
         ini = readdata(INI_FILE)
@@ -219,8 +220,8 @@ class enhancer:
             x += hw
             xs, xe, ok = xe, x, False
             while xe < x+int(hw/30):
-                if self.__is_blank(xrange(xe, xe+10), xrange(hw-vs, hw+vs), pixels) and\
-                self.__is_blank(xrange(xe, xe+10), xrange(hw*2-vs, hw*2+vs), pixels):
+                if self.__is_blank(xrange(xe, xe+10), xrange(vw-vs, vw+vs), pixels) and\
+                self.__is_blank(xrange(xe, xe+10), xrange(vw*2-vs, vw*2+vs), pixels):
                     ok = True
                     break
                 else:
@@ -228,8 +229,8 @@ class enhancer:
             if not ok:
                 xe = x
                 while xe > x-int(hw/30):
-                    if self.__is_blank(xrange(xe, xe-10), xrange(hw-vs, hw+vs), pixels) and\
-                    self.__is_blank(xrange(xe, xe-10), xrange(hw*2-vs, hw*2+vs), pixels):
+                    if self.__is_blank(xrange(xe, xe-10), xrange(vw-vs, vw+vs), pixels) and\
+                    self.__is_blank(xrange(xe, xe-10), xrange(vw*2-vs, vw*2+vs), pixels):
                         ok = True
                         break
                     else:
@@ -240,8 +241,8 @@ class enhancer:
         imgs = []
         for xs, xe in cols:
             box = [xs, 0, xe, vmax-1]
-            imgs.append(img.crop(box))
-        imgs.append(img.crop((xe, 0, hmax-1, vmax-1)))
+            imgs.append(self.__crop(img.crop(box)))
+        imgs.append(self.__crop(img.crop((xe, 0, hmax-1, vmax-1))))
         return imgs
 
     def __save(self, img, file):
